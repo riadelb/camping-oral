@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Détail du Bien
+{% endblock %}
+
+{% block body %}
+    <h1><a href="/">Camping l'Espadrille Volante</a></h1>
+    <h2>Détail du Bien</h2>
+    {% if bien %}
+        <div class="card">
+            <img src="{{ asset('img/' ~ bien.imagePath) }}" class="card-img-top" alt="{{ bien.nom }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ bien.nom }}</h5>
+                <p class="card-text">{{ bien.description }}</p>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Capacité: {{ bien.capacite }}</li>
+                    <li class="list-group-item" id="reservation_pro_prix">Prix: {{ bien.prix/100 }} €</li>
+                </ul>
+                {% if showReservationForm %}
+                    <p>Réserver ce bien</p>
+                    {{ form_start(reservationForm) }}
+                    {{ form_widget(reservationForm) }}
+                    <button type="submit" class="btn btn-primary">Réserver</button>
+                    <div id="stripe-button-container" hidden="hidden">
+                        <script
+                                src="https://checkout.stripe.com/checkout.js"
+                                class="stripe-button"
+                                data-key="{{ stripe_publishable_key }}"
+                                data-name="Réservation de bien"
+                                data-description="Réservation de bien"
+                                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                                data-locale="auto"
+                                data-currency="eur"
+                                data-zip-code="false"
+                                data-email="{{ app.user.email }}"
+                                data-debug="true"
+                        ></script>
+                    </div>
+                    {{ form_errors(reservationForm) }}
+                    {{ form_end(reservationForm) }}
+                {% else %}
+                    <p>Connectez-vous pour effectuer une réservation.</p>
+                    <a href="{{ path('app_login') }}" class="btn-primary">Connectez-vous</a>
+                    <a href="{{ path('app_register') }}" class="btn-primary">Inscrivez-vous</a>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Ajout de bien
+{% endblock %}
+
+{% block body %}
+    <h1><a href="/">Camping l'Espadrille Volante</a></h1>
+    <h2>Nouveau bien</h2>
+    {% include 'bien/_form.html.twig' %}
+    <a href="{{ path('app_admin') }}" class="btn btn-primary">Retour à la liste</a>
+{% endblock %}
+

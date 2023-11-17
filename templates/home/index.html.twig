@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Camping l'Espadrille Volante{% endblock %}
+
+{% block body %}
+    <h1><a href="/">Camping l'Espadrille Volante</a></h1>
+    {% if not is_granted('ROLE_ADMIN') and not is_granted('ROLE_PRO') %}
+        <a href="/register" class="btn">S'inscrire</a>
+        <a href="/login" class="btn">Connexion</a>
+    {% endif %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="/admin/dashboard" class="btn">Espace admin</a>
+    {% endif %}
+    {% if app.user %}
+        <div class="row">
+            <div><h2>Bonjour {{ app.user.nom }}</h2></div><div><a href="{{ path('app_logout') }}" class="btn">Déconnexion</a></div>
+        </div>
+    {% endif %}
+    <div class="card-container">
+        {% for bien in biens %}
+            <div class="card">
+                <div class="card-image bg-danger">
+                    <img src="/img/{{ bien.imagePath }}" alt="{{ bien.nom }}" style="width: 1000px">
+                </div>
+                <div class="card-content">
+                    <h5 class="card-title">{{ bien.nom }}</h5>
+                    <p class="card-description">{{ bien.description }}</p>
+                    <ul class="card-details">
+                        <li>Type: {{ bien.type.getLabel }}</li>
+                        <li>Capacité: {{ bien.capacite }}</li>
+                        <li>Prix: {{ bien.prix/100 }} €</li>
+                    </ul>
+                    <a href="/detail/{{ bien.id }}" class="btn">Voir plus</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

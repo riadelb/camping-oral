@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Edition de bien
+{% endblock %}
+
+{% block body %}
+    <h1><a href="/">Camping l'Espadrille Volante</a></h1>
+    <h2>Modifier le bien</h2>
+    {{ bien.nom }}
+    {% include 'bien/_form.html.twig' with {'button_label': 'Modifier'} %}
+    <div class="d-flex">
+        <a href="{{ path('app_admin') }}" class="btn">Retour à la liste</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,3 @@
+<?php //App%255CController%255CTypeFilterController%2523filterByType
+
+return [PHP_INT_MAX, []];

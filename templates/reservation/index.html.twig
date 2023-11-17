@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reservation{% endblock %}
+
+{% block body %}
+    <h1><a href="/">Camping l'Espadrille Volante</a></h1>
+    <a href="/admin/dashboard" class="btn">Retour aux biens</a>
+    <h1>Reservation</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Total</th>
+                <th>Enfants</th>
+                <th>Adultes</th>
+                <th>DateDebut</th>
+                <th>DateFin</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reservation in reservations %}
+            <tr>
+                <td>{{ reservation.id }}</td>
+                <td>{{ reservation.total }}</td>
+                <td>{{ reservation.enfants }}</td>
+                <td>{{ reservation.adultes }}</td>
+                <td>{{ reservation.dateDebut ? reservation.dateDebut|date('Y-m-d') : '' }}</td>
+                <td>{{ reservation.dateFin ? reservation.dateFin|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_reservation_show', {'id': reservation.id}) }}" class="btn">voir</a>
+                    <a href="{{ path('app_reservation_edit', {'id': reservation.id}) }}" class="btn">modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7" class="alert-danger">pas de reservations</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_reservation_new') }}" class="btn">Faire une reservation</a>
+{% endblock %}

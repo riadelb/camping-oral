@@ -1,0 +1,8 @@
+twig:
+    default_path: '%kernel.project_dir%/templates'
+    globals:
+        stripe_publishable_key: '%env(STRIPE_PUBLISHABLE_KEY)%'
+
+when@test:
+    twig:
+        strict_variables: true

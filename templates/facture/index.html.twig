@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Liste des Factures
+{% endblock %}
+
+{% block body %}
+    <h1><a href="/">Camping l'Espadrille Volante</a></h1>
+    <a href="/admin/dashboard" class="btn">Espace admin</a>
+    <h1>Liste des Factures</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Total</th>
+            <th scope="col">Date de Début</th>
+            <th scope="col">Date de Fin</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for facture in factures %}
+            <tr>
+                <th scope="row">{{ facture.id }}</th>
+                <td>{{ facture.nom }}</td>
+                <td>{{ facture.total }}</td>
+                <td>{{ facture.dateDebut|date('Y-m-d') }}</td>
+                <td>{{ facture.dateFin|date('Y-m-d') }}</td>
+                <td>
+                    <a href="{{ path('generate_pdf', {'id': facture.id}) }}" class="btn btn-sm btn-success">Télécharger PDF</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
